@@ -1,1 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Travel Explorer</title>
+    <link rel="stylesheet" href="./style.css" />
+    <meta name="color-scheme" content="light dark" />
+  </head>
+  <body>
+    <header class="site-header" role="banner">
+      <div class="container header-inner">
+        <h1 class="site-title">Travel Explorer</h1>
 
+        <nav class="site-nav" aria-label="Primary">
+          <button class="nav-link" id="navWelcome" data-view="welcome" aria-current="page">Welcome</button>
+          <button class="nav-link" id="navExplore" data-view="explore">Explore</button>
+          <button class="nav-link" id="navFavorites" data-view="favorites">Favorites</button>
+          <button class="nav-link" id="navPlanner" data-view="planner">Planner</button>
+        </nav>
+
+        <button id="themeToggle" class="btn btn-ghost" aria-pressed="false" aria-label="Toggle dark mode">
+          🌙 Dark Mode
+        </button>
+      </div>
+    </header>
+
+    <main class="container" role="main" id="main">
+      <section id="welcome" class="welcome" aria-labelledby="welcome-heading">
+        <div class="welcome-hero">
+          <h2 id="welcome-heading" class="welcome-title">Plan, Discover, and Save Your Next Adventure</h2>
+          <p class="welcome-subtitle">
+            Search any destination to get curated photos, live weather, and a handy trip planner.
+            Save your favorite spots to revisit later.
+          </p>
+          <div class="welcome-cta">
+            <button id="startExploringBtn" class="btn btn-primary">Start Exploring</button>
+          </div>
+        </div>
+        <div class="welcome-features">
+          <div class="welcome-card">
+            <h3 class="welcome-card-title">Discover</h3>
+            <p>Explore destinations with a beautiful photo gallery and embedded maps.</p>
+          </div>
+          <div class="welcome-card">
+            <h3 class="welcome-card-title">Plan</h3>
+            <p>Create itineraries with dates and notes—stored locally for quick access.</p>
+          </div>
+          <div class="welcome-card">
+            <h3 class="welcome-card-title">Favorite</h3>
+            <p>Save the best photos and build your shortlist of must-see places.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="explore" hidden aria-labelledby="search-heading">
+        <h2 id="search-heading" class="sr-only">Search destination</h2>
+
+        <div class="search-bar">
+          <label for="placeInput" class="sr-only">Destination</label>
+          <input
+            id="placeInput"
+            type="text"
+            placeholder="Search a city or place (e.g., Paris, Goa)"
+            autocomplete="off"
+            inputmode="search"
+            aria-label="Destination"
+          />
+          <button id="searchBtn" class="btn btn-primary" aria-label="Search">
+            Search
+          </button>
+        </div>
+
+        <div class="popular">
+          <span class="popular-label">Popular:</span>
+          <div class="popular-list" role="list">
+            <button class="chip" data-place="Paris" role="listitem">Paris</button>
+            <button class="chip" data-place="New York" role="listitem">New York</button>
+            <button class="chip" data-place="Tokyo" role="listitem">Tokyo</button>
+            <button class="chip" data-place="Goa" role="listitem">Goa</button>
+            <button class="chip" data-place="Sydney" role="listitem">Sydney</button>
+          </div>
+        </div>
+
+        <div class="recent">
+          <span class="recent-label">Recent:</span>
+          <div id="recentList" class="recent-list" role="list"></div>
+        </div>
+
+        <div id="status" class="status" aria-live="polite"></div>
+
+        <section class="results" aria-labelledby="results-heading">
+          <h2 id="results-heading" class="sr-only">Results</h2>
+
+          <div id="loading" class="loading" hidden>
+            <div class="spinner" aria-hidden="true"></div>
+            <p class="loading-text">Fetching photos and weather...</p>
+          </div>
+
+          <div class="results-grid">
+            <div class="gallery-section" aria-labelledby="gallery-heading">
+              <h3 id="gallery-heading" class="section-title">Photos</h3>
+              <div id="gallery" class="gallery" aria-live="polite"></div>
+            </div>
+
+            <div class="weather-section" aria-labelledby="weather-heading">
+              <h3 id="weather-heading" class="section-title">Weather</h3>
+              <div id="weather" class="weather-card" aria-live="polite"></div>
+            </div>
+          </div>
+
+          <div class="map-section" aria-labelledby="map-heading">
+            <h3 id="map-heading" class="section-title">Map</h3>
+            <div class="map-frame">
+              <!-- Map iframe updates dynamically on search -->
+              <iframe
+                id="map"
+                title="Map"
+                style="border:0"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps?q=World&output=embed"
+              ></iframe>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section id="favorites" hidden aria-labelledby="favorites-heading">
+        <h2 id="favorites-heading" class="section-title">Your Favorites</h2>
+        <div id="favoritesGrid" class="gallery"></div>
+        <p id="favoritesEmpty" class="empty-state" aria-live="polite" hidden>No favorites saved yet.</p>
+      </section>
+
+      <section id="planner" hidden aria-labelledby="planner-heading">
+        <h2 id="planner-heading" class="section-title">Trip Planner</h2>
+        <p class="muted">Planning for: <strong id="plannerPlace">—</strong></p>
+
+        <form id="plannerForm" class="planner-form" novalidate>
+          <label class="sr-only" for="itemTitle">Title</label>
+          <input id="itemTitle" type="text" placeholder="Add itinerary item (e.g., Louvre Museum)" required />
+
+          <label class="sr-only" for="itemDate">Date</label>
+          <input id="itemDate" type="date" />
+
+          <label class="sr-only" for="itemNote">Note</label>
+          <input id="itemNote" type="text" placeholder="Notes (time, tickets, etc.)" />
+
+          <button class="btn btn-primary" id="addItemBtn" type="submit">Add</button>
+          <button class="btn btn-ghost" id="exportPlanBtn" type="button">Export</button>
+        </form>
+
+        <ul id="itineraryList" class="itinerary"></ul>
+        <p id="itineraryEmpty" class="empty-state" aria-live="polite">No items yet—add your first plan!</p>
+      </section>
+    </main>
+
+    <div id="lightbox" class="lightbox-backdrop" role="dialog" aria-modal="true" hidden>
+      <div class="lightbox" role="document">
+        <button id="lightboxClose" class="lightbox-close" aria-label="Close">&times;</button>
+        <button id="lightboxPrev" class="lightbox-nav lightbox-prev" aria-label="Previous photo">&#10094;</button>
+        <img id="lightboxImg" alt="" />
+        <button id="lightboxNext" class="lightbox-nav lightbox-next" aria-label="Next photo">&#10095;</button>
+        <div id="lightboxCaption" class="lightbox-caption"></div>
+      </div>
+    </div>
+
+    <footer class="site-footer" role="contentinfo">
+      <div class="container">
+        <p>Built for exploring destinations with photos and weather.</p>
+      </div>
+    </footer>
+
+    <script src="./script.js" defer></script>
+  </body>
+</html>
