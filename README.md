@@ -48,5 +48,5 @@ The Travel Explorer Website simplifies trip planning by integrating multiple dat
 ---
 
 ## 🚀 Live Demo
-🔗 [Click here to view the live demo](travelexplorer5.netlify.app)  
+🔗 [Click here to view the live demo](https://travelexploorerr.netlify.app)  
 
