@@ -11,7 +11,7 @@ Travelers often struggle to find destination-related information in one place. E
   - Unsplash API → Destination images  
   - OpenWeatherMap API → Real-time weather details  
 - **Tools:** VS Code, Git/GitHub  
-- **Deployment:** GitHub Pages / Netlify / Vercel  
+- **Deployment:** Netlify 
 
 ---
 
@@ -47,10 +47,5 @@ The Travel Explorer Website simplifies trip planning by integrating multiple dat
 
 ---
 
-## LIVE DEMO
-- [Unsplash API Docs](https://unsplash.com/developers)  
-- [OpenWeatherMap API](https://openweathermap.org/api)  
-- [MDN Web Docs](https://developer.mozilla.org)  
-- [W3Schools Tutorials](https://www.w3schools.com)  
-- [Netlify Deployment Guide](https://docs.netlify.com)  
+- [Live Demo](travelexplorer5.netlify.app)  
 
